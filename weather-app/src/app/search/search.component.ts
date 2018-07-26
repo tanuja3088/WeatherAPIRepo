@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { DataService } from '../service/data.service';
 import { WeatherService } from '../service/weather.service';
+import { Weather } from '../model/weather.model';
 
 @Component({
   selector: 'app-search',
@@ -9,12 +10,10 @@ import { WeatherService } from '../service/weather.service';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent {
-
   searchTerm: FormControl = new FormControl();
-
-  searchResult = [];
+  searchResult:  string[] = [];
   selectedValue: string;
-  weatherInfo = [];
+  weatherInfo: Weather[] = [];
 
   constructor(private service: DataService, private weatherService: WeatherService) {
     this.searchTerm.valueChanges.subscribe(data => {
@@ -33,6 +32,8 @@ export class SearchComponent {
       return this.selectedValue;
     }
   }
+
+
   addWeatherInfo() {
     let isNewWeatherLocation = true;
     this.weatherService.get_weather(this.selectedValue).subscribe(response => {
@@ -41,11 +42,19 @@ export class SearchComponent {
           isNewWeatherLocation = false;
         }
       });
+      console.log('isNewWeatherLocation: ', isNewWeatherLocation);
       if (isNewWeatherLocation) {
         this.weatherInfo.push(response);
       }
       console.log('This weatherInfo: ', this.weatherInfo);
     });
+    this.searchTerm.reset();
+  }
+
+  removeEntry(i: number) {
+    console.log('index: ', i);
+    this.weatherInfo.splice(i, 1);
+   console.log('weatherInfo: ', this.weatherInfo);
   }
 }
 

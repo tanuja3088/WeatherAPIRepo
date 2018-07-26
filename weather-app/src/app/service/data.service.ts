@@ -12,6 +12,6 @@ export class DataService {
   }
 
   search_word(term) {
-    return this.http.get(this.url + term);
+    return this.http.get<string[]>(this.url + term);
   }
 }

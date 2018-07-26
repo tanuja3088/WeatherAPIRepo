@@ -9,26 +9,21 @@
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
-    <input type="button" value="Add Weather" (click)="addWeatherInfo()">
+    <input type="button" value="Add weather" (click)="addWeatherInfo()">
   </form>
 </div>
 
 <p></p>
 <div class="container">
-  <div class="row" *ngFor="let weather of weatherInfo">
-    <div class="weather-info">
-      <div class="panel panel-primary" id="copyright-wrap">
-        <div class="panel-heading">
-          <button type="button" class="close" data-target="#copyright-wrap" data-dismiss="alert"><span
-            aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-          </button>
-          <img src='{{weather.current.condition.icon}}'>
-        </div>
-        <div class="panel-body" style="background:#2c4474">&copy; some random dude</div>
-      </div>
-    </div>
-  </div>
-</div>
+  <tr>
+    <td *ngFor="let weather of weatherInfo; let i = index">
+      <button [id]="i" type="button" class="close" data-target="#copyright-wrap" data-dismiss="alert"
+              (click)="removeEntry(i)"><span
+        aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+      </button>
+      <img src='{{weather.current.condition.icon}}'>
+    </td>
+  </tr>
 
 
 
