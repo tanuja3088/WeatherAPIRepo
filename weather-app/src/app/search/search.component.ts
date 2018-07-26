@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { DataService } from '../data.service';
-import { WeatherService } from '../weather.service';
+import { DataService } from '../service/data.service';
+import { WeatherService } from '../service/weather.service';
 
 @Component({
-  selector: 'app-city',
-  templateUrl: './city.component.html',
-  styleUrls: ['./city.component.css']
+  selector: 'app-search',
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.css']
 })
-export class CityComponent {
+export class SearchComponent {
 
   searchTerm: FormControl = new FormControl();
 
@@ -34,7 +34,7 @@ export class CityComponent {
     }
   }
   addWeatherInfo() {
-    const isNewWeatherLocation = true;
+    let isNewWeatherLocation = true;
     this.weatherService.get_weather(this.selectedValue).subscribe(response => {
       this.weatherInfo.forEach(function(weather) {
         if (weather.location.name === response.location.name) {
