@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { DataService } from '../service/data.service';
 import { WeatherService } from '../service/weather.service';
 import { Weather } from '../model/weather.model';
+import { MatAutocompleteModule, MatInputModule } from '@angular/material';
 
 @Component({
   selector: 'app-search',
