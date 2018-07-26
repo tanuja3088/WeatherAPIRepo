@@ -1,7 +1,6 @@
 package com.tanuja.weather.service;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tanuja.weather.model.Weather;
 import org.slf4j.Logger;
@@ -12,11 +11,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 /**
  * Created by tguqa8 on 2018-07-25.
@@ -24,7 +21,7 @@ import java.io.UnsupportedEncodingException;
 @Service
 public class WeatherService {
 
-    private static final Logger log = LoggerFactory.getLogger(CityService.class);
+    private static final Logger log = LoggerFactory.getLogger(WeatherService.class);
 
     @Value("${api-key-weather}")
     String key;
@@ -32,7 +29,8 @@ public class WeatherService {
     @Value("${api-url-weather}")
     String url;
 
-    public String getWeather(String name) throws UnsupportedEncodingException {
+    public String getWeather(String name) throws JsonProcessingException {
+        log.info("Getting weather details..");
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         ObjectMapper mapper = new ObjectMapper();
@@ -50,15 +48,8 @@ public class WeatherService {
                 entity,
                 Weather.class);
 
-        try {
-            weatherInfo = mapper.writeValueAsString(response.getBody());
-        } catch (JsonGenerationException e) {
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        weatherInfo = mapper.writeValueAsString(response.getBody());
+        log.info("Returning weather details");
         return weatherInfo;
     }
 

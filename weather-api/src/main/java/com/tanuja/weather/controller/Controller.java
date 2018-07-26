@@ -1,12 +1,12 @@
 package com.tanuja.weather.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.tanuja.weather.service.CityService;
 import com.tanuja.weather.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 /**
@@ -17,6 +17,7 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 public class Controller {
 
+
     @Autowired
     CityService cityService;
 
@@ -26,13 +27,13 @@ public class Controller {
 
     @RequestMapping(value = "/city", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public List<String> getCities(@RequestParam("city") final String city) throws UnsupportedEncodingException {
+    public List<String> getCities(@RequestParam("city") final String city) throws Exception {
         return cityService.getCities(city);
     }
 
     @RequestMapping(value = "/weather", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String getTemperature(@RequestParam("city") final String city) throws UnsupportedEncodingException {
+    public String getTemperature(@RequestParam("city") final String city) throws JsonProcessingException {
         return weatherService.getWeather(city);
     }
 }

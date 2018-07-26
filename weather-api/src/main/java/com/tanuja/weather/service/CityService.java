@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,7 +31,8 @@ public class CityService {
     @Value("${api-url-cities}")
     String url;
 
-    public List<String> getCities(String name) throws UnsupportedEncodingException {
+    public List<String> getCities(String cityName) {
+        log.info("Getting cities list..");
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
@@ -40,7 +40,7 @@ public class CityService {
         HttpEntity<?> entity = new HttpEntity<>(headers);
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url)
-                .queryParam("input", name)
+                .queryParam("input", cityName)
                 .queryParam("key", key)
                 .queryParam("types", types);
 
@@ -49,11 +49,8 @@ public class CityService {
                 HttpMethod.GET,
                 entity,
                 Result.class);
-        List<String> cities = response.getBody().getCities().stream().map(prediction -> prediction.getCity()).collect(Collectors.toList());
-        String[] citiesArr = new String[cities.size()];
-        citiesArr = cities.toArray(citiesArr);
-
-        return cities;
+        log.info("Returning cities list..");
+        return response.getBody().getCities().stream().map(prediction -> prediction.getCity()).collect(Collectors.toList());
     }
 
 }
