@@ -13,6 +13,7 @@ export interface Condition {
   text: string;
   icon: string;
   code: number;
+  backgroundColor: string;
 }
 
 export interface Current {

@@ -1,6 +1,7 @@
 package com.tanuja.weather.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.tanuja.weather.model.Weather;
 import com.tanuja.weather.service.CityService;
 import com.tanuja.weather.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class Controller {
 
     @RequestMapping(value = "/weather", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String getTemperature(@RequestParam("city") final String city) throws JsonProcessingException {
+    public Weather getTemperature(@RequestParam("city") final String city) throws JsonProcessingException {
         return weatherService.getWeather(city);
     }
 }

@@ -8,7 +8,7 @@ import { FooterComponent } from './footer/footer.component';
 import {HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatAutocompleteModule, MatInputModule } from '@angular/material';
+import {MatAutocompleteModule, MatIconModule, MatInputModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,8 @@ import { MatAutocompleteModule, MatInputModule } from '@angular/material';
     ReactiveFormsModule,
     MatAutocompleteModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

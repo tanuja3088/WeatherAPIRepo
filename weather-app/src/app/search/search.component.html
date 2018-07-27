@@ -1,32 +1,50 @@
 <div id="searchCity" class="searchCity">
   <form class="example-form">
-    <mat-form-field class="example-full-width">
-      <input type="text" placeholder="search word" aria-label="Number" matInput [formControl]="searchTerm"
-             [matAutocomplete]="auto">
-      <mat-autocomplete #auto="matAutocomplete" [displayWith]="valueMapper">
-        <mat-option *ngFor="let item of searchResult" [value]="item">
-          {{ item }}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
-    <button type="button" class="btn btn-info btn-sm" (click)="addWeatherInfo()">
-      <span class="glyphicon glyphicon-plus"></span> +
-    </button>
+    <div class="row">
+      <h5>How's the weather in...</h5>
+    </div>
+    <div class="row">
+      <div class="col-xs-6">
+         <mat-form-field style=" margin-bottom: -1.25em;width: 250px;">
+          <mat-label>Search City</mat-label>
+          <input matInput type="text" placeholder="" aria-label="Number" [formControl]="searchTerm"
+                 [matAutocomplete]="auto" required>
+          <mat-error *ngIf="searchTerm.invalid">{{getErrorMessage()}}</mat-error>
+          <mat-icon matPrefix>location_on</mat-icon>
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="valueMapper">
+            <mat-option *ngFor="let item of searchResult" [value]="item">
+              {{ item }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+      </div>
+      <div class="col-xs-6">
+        <button mat-button class="btn btn-info btn-sm add-button" (click)="addWeatherInfo()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </div>
   </form>
 </div>
 
 <p></p>
-<div class="container">
-  <tr>
-    <td *ngFor="let weather of weatherInfo; let i = index">
+
+
+<div class="container weather-container">
+  <div class="row">
+    <div class="col-xs-8 city-weather-spacing"
+         *ngFor="let weather of weatherInfo; let i = index"
+         [style.background-color]="weather.current.condition.backgroundColor">
       <button [id]="i" type="button" class="close" data-target="#copyright-wrap" data-dismiss="alert"
-              (click)="removeEntry(i)"><span
-        aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+              (click)="removeEntry(i)"><mat-icon matSuffix>cancel</mat-icon>
       </button>
-      <img src='{{weather.current.condition.icon}}'> {{weather.location.name}} {{weather.location.region}}
-      {{weather.current.temp_c}}
-    </td>
-  </tr>
+      <div class="clearfix float-my-children"><img src='{{weather.current.condition.icon}}' width=100>
+        <div class="font-weather">{{weather.current.temp_c}}&#8451;
+        </div>
+        <div class="font-city">{{weather.location.name}},{{weather.location.country}}
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-
-

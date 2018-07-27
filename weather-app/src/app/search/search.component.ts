@@ -4,6 +4,8 @@ import { DataService } from '../service/data.service';
 import { WeatherService } from '../service/weather.service';
 import { Weather } from '../model/weather.model';
 import { MatAutocompleteModule, MatInputModule } from '@angular/material';
+import {FormControl, Validators} from '@angular/forms';
+
 
 @Component({
   selector: 'app-search',
@@ -11,7 +13,7 @@ import { MatAutocompleteModule, MatInputModule } from '@angular/material';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent {
-  searchTerm: FormControl = new FormControl();
+  searchTerm: FormControl = new FormControl('', [ Validators.required ]);
   searchResult:  string[] = [];
   selectedValue: string;
   weatherInfo: Weather[] = [];
@@ -45,17 +47,35 @@ export class SearchComponent {
       });
       console.log('isNewWeatherLocation: ', isNewWeatherLocation);
       if (isNewWeatherLocation) {
+        this.setBackgroudColor(response);
         this.weatherInfo.push(response);
       }
       console.log('This weatherInfo: ', this.weatherInfo);
     });
-    this.searchTerm.reset();
+    this.searchTerm.reset(' ');
   }
 
   removeEntry(i: number) {
     console.log('index: ', i);
     this.weatherInfo.splice(i, 1);
    console.log('weatherInfo: ', this.weatherInfo);
+  }
+
+  setBackgroudColor(weather: Weather) {
+    const weatherText = weather.current.condition.text;
+    if (weatherText === 'Sunny') {
+      weather.current.condition.backgroundColor = '#005c99';
+    } else if (weatherText.indexOf('rain') > -1 || weatherText.indexOf('drizzle') > -1) {
+      weather.current.condition.backgroundColor = '#4db8ff';
+    } else if (weatherText.indexOf('cloud') > -1 || weatherText.indexOf('Mist') > -1) {
+      weather.current.condition.backgroundColor = '#b3cccc';
+    } else {
+      weather.current.condition.backgroundColor = '#80aaff';
+    }
+  }
+
+  getErrorMessage() {
+    return this.searchTerm.hasError('required') ? 'You must enter a value' : '';
   }
 }
 

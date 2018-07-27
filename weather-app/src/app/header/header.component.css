@@ -10,3 +10,7 @@
   left: 10px;
   background-color: #2c4474;
 }
+
+.bg-primary {
+   background-color: #0b2b5b !important;
+ }

@@ -29,7 +29,7 @@ public class WeatherService {
     @Value("${api-url-weather}")
     String url;
 
-    public String getWeather(String name) throws JsonProcessingException {
+    public Weather getWeather(String name) throws JsonProcessingException {
         log.info("Getting weather details..");
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -50,7 +50,7 @@ public class WeatherService {
 
         weatherInfo = mapper.writeValueAsString(response.getBody());
         log.info("Returning weather details");
-        return weatherInfo;
+        return response.getBody();
     }
 
 }
