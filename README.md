@@ -4,6 +4,11 @@ This project has 2 parts
 Front end - weather-app 
 Backend - weather-api
 
+# Framework
+
+Backend: Springboot 2.0.3
+Frontend: Angular 6
+
 ## Port
 
 Frontend    : 4200
