@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/rest/getData")
 @CrossOrigin(origins = "http://localhost:4200")
-public class Controller {
+public class WeatherController {
 
 
     @Autowired
