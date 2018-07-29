@@ -47,7 +47,6 @@ export class SearchComponent implements OnInit {
 
   addWeatherInfo() {
     let isNewWeatherLocation = true;
-    console.log('this.isLoading', this.isLoading);
     this.weatherService.get_weather(this.selectedValue).subscribe(response => {
       this.weatherInfo.forEach(function (weather) {
         if (weather.location.name === response.location.name) {
