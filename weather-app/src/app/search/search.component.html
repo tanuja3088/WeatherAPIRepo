@@ -9,7 +9,7 @@
           <div class="col-xs-6">
             <mat-form-field style=" margin-bottom: -1.25em;width: 250px;">
               <input matInput type="text" placeholder="Search City" aria-label="Number" [formControl]="searchTerm"
-                     [matAutocomplete]="auto">
+                     [matAutocomplete]="auto" required>
               <mat-error *ngIf="searchTerm.invalid">{{getErrorMessage()}}</mat-error>
               <mat-icon matPrefix>location_on</mat-icon>
               <mat-autocomplete #auto="matAutocomplete" [displayWith]="valueMapper">
