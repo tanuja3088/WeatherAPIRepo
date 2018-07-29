@@ -1,45 +1,55 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { DataService } from '../service/data.service';
 import { WeatherService } from '../service/weather.service';
-import { Weather } from '../model/weather.model';
-import { MatAutocompleteModule, MatInputModule } from '@angular/material';
+import {City, Weather} from '../model/weather.model';
 import {FormControl, Validators} from '@angular/forms';
-
+import { debounceTime } from 'rxjs/internal/operators';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
-export class SearchComponent {
-  searchTerm: FormControl = new FormControl('', [ Validators.required ]);
-  searchResult:  string[] = [];
-  selectedValue: string;
+export class SearchComponent implements OnInit {
+  searchTerm: FormControl = new FormControl();
+  searchResult: City[] = [];
+  selectedValue: String;
   weatherInfo: Weather[] = [];
+  separator: String = ', ';
 
-  constructor(private service: DataService, private weatherService: WeatherService) {
-    this.searchTerm.valueChanges.subscribe(data => {
-        this.service.search_word(data).subscribe(response => {
+  ngOnInit() {
+    this.searchTerm.valueChanges.pipe(debounceTime(500)).subscribe(data => {
+      console.log('data', data);
+      /*
+        typeof check is needed to avoid extra API call with Object
+       */
+      if (typeof data === 'string') {
+        this.cityService.search_word(data).subscribe(response => {
           this.searchResult = response;
         });
-      });
+      }
+    });
+  }
+
+  constructor(private cityService: DataService, private weatherService: WeatherService) {
   }
 
   valueMapper = (key) => {
-    const selection = this.searchResult.find(function(searchResult) {
+    const selection = this.searchResult.find(function (searchResult) {
       return searchResult === key;
     });
     if (selection) {
-      this.selectedValue = selection;
-      return this.selectedValue;
+      this.selectedValue = selection.cityName;
+      return (selection.cityName + this.separator + selection.state);
     }
   }
 
 
   addWeatherInfo() {
     let isNewWeatherLocation = true;
+    console.log('this.isLoading', this.isLoading);
     this.weatherService.get_weather(this.selectedValue).subscribe(response => {
-      this.weatherInfo.forEach(function(weather) {
+      this.weatherInfo.forEach(function (weather) {
         if (weather.location.name === response.location.name) {
           isNewWeatherLocation = false;
         }
@@ -51,13 +61,14 @@ export class SearchComponent {
       }
       console.log('This weatherInfo: ', this.weatherInfo);
     });
-    this.searchTerm.reset(' ');
+    this.searchTerm.reset();
+    this.selectedValue = null;
   }
 
   removeEntry(i: number) {
     console.log('index: ', i);
     this.weatherInfo.splice(i, 1);
-   console.log('weatherInfo: ', this.weatherInfo);
+    console.log('weatherInfo: ', this.weatherInfo);
   }
 
   setBackgroudColor(weather: Weather) {
@@ -67,7 +78,7 @@ export class SearchComponent {
     } else if (weatherText.indexOf('rain') > -1 || weatherText.indexOf('drizzle') > -1) {
       weather.current.condition.backgroundColor = '#4db8ff';
     } else if (weatherText.indexOf('cloud') > -1 || weatherText.indexOf('Mist') > -1) {
-      weather.current.condition.backgroundColor = '#b3cccc';
+      weather.current.condition.backgroundColor = '#78786C';
     } else {
       weather.current.condition.backgroundColor = '#80aaff';
     }

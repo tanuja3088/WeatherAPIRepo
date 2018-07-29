@@ -1,6 +1,7 @@
 package com.tanuja.weather.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.tanuja.weather.model.City;
 import com.tanuja.weather.model.Weather;
 import com.tanuja.weather.service.CityService;
 import com.tanuja.weather.service.WeatherService;
@@ -16,7 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/rest/getData")
 @CrossOrigin(origins = "http://localhost:4200")
-public class WeatherController {
+public class Controller {
 
 
     @Autowired
@@ -28,7 +29,7 @@ public class WeatherController {
 
     @RequestMapping(value = "/city", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public List<String> getCities(@RequestParam("city") final String city) throws Exception {
+    public List<City> getCities(@RequestParam("city") final String city) throws Exception {
         return cityService.getCities(city);
     }
 

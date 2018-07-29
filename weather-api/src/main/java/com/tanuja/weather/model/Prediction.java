@@ -10,6 +10,9 @@ public class Prediction {
     @JsonProperty(value = "description")
     private String city;
 
+    @JsonProperty(value = "structured_formatting")
+    private Structure structure;
+
     public String getCity() {
         return city;
     }
@@ -23,5 +26,13 @@ public class Prediction {
         return "Prediction{" +
                 "city='" + city + '\'' +
                 '}';
+    }
+
+    public Structure getStructure() {
+        return structure;
+    }
+
+    public void setStructure(final Structure structure) {
+        this.structure = structure;
     }
 }

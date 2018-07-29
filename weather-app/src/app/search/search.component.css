@@ -11,9 +11,8 @@
 #searchCity {
   position: absolute;
   width: 300px;
-  height: 200px;
   z-index: 15;
-  top: 50%;
+  top: 35%;
   left: 50%;
   margin: -100px 0 0 -150px;
 }
@@ -25,7 +24,6 @@
 .weather-info {
   position: absolute;
   width: 20%;
-  height: 10%;
   z-index: 15;
   top: 60%;
   left: 50%;
@@ -36,29 +34,27 @@
   position: absolute;
   width: 70%;
   height: auto;
-  z-index: 15;
-  top: 70%;
-  left: 25%;
+  top: 53%;
+  left: 30%;
   margin: -100px 0 0 -150px;
+  padding: 10px;
+  padding-bottom: 80px;
 }
 
 .city-weather-spacing{
   float:right;
   margin:10px;
-  width: 30%;
-  height: 100px;
+  width: 25%;
   border: 1px solid white;
 }
 
 .city-weather{
   width:200px;
-  height:200px;
 }
 
 .clearfix:before,
 .clearfix:after {
-  content: " "; /* 1 */
-  display: table; /* 2 */
+  content: " ";
 }
 
 .clearfix:after {
@@ -67,6 +63,7 @@
 
 .clearfix {
   *zoom: 1;
+  display: flex !important;
 }
 
 .float-my-children > * {
@@ -94,13 +91,37 @@
   opacity: .4;
 }
 
-.img-responsive {
-//max-width: 50px;
-  max-height: 100px;
+.loading-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  top: 20%;
 }
 
-.brand {
-  height: 35px;
+#vertical-div {
+  float: right !important;
+  margin-top: 10px;
+}
+
+.white-icon {
+  color: white;
+}
+/* Note: If you're using an SVG icon, you should make the class target the `<svg>` element */
+.white-icon svg {
+  fill: white;
+}
+
+.mat-form-field-flex {
+  background-color: lightgrey !important;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+button[disabled] {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
 }
 
 

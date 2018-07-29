@@ -1,5 +1,6 @@
 package com.tanuja.weather.service;
 
+import com.tanuja.weather.model.City;
 import com.tanuja.weather.model.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +32,7 @@ public class CityService {
     @Value("${api-url-cities}")
     String url;
 
-    public List<String> getCities(String cityName) {
+    public List<City> getCities(String cityName) {
         log.info("Getting cities list..");
         RestTemplate restTemplate = new RestTemplate();
 
@@ -50,7 +51,8 @@ public class CityService {
                 entity,
                 Result.class);
         log.info("Returning cities list..");
-        return response.getBody().getCities().stream().map(prediction -> prediction.getCity()).collect(Collectors.toList());
+
+        return response.getBody().getCities().stream().map(obj -> new City(obj.getStructure().getMain_text(), obj.getStructure().getSecondary_text())).collect(Collectors.toList());
     }
 
 }

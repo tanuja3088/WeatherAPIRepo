@@ -43,3 +43,8 @@ export interface Weather {
   location: Location;
   current: Current;
 }
+
+export interface City {
+  cityName: string;
+  state: string;
+}

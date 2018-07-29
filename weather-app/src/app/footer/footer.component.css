@@ -1,5 +1,5 @@
 .footer {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
@@ -13,4 +13,11 @@
 
 element.style {
   text-align: left !important;
+}
+
+.footer-content-center {
+  margin: auto;
+  padding: 10px;
+  text-align: center;
+  vertical-align: middle;
 }

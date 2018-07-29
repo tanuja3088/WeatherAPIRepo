@@ -9,7 +9,6 @@ import {HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatAutocompleteModule, MatIconModule, MatInputModule} from '@angular/material';
-
 @NgModule({
   declarations: [
     AppComponent,
